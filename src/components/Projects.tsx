@@ -6,7 +6,6 @@ import captchaImg from "@/assets/project-captcha.png";
 import ravaImg from "@/assets/project-rava.png";
 import portfolioImg from "@/assets/project-portfolio.png";
 import hydraImage from "@/assets/hydraetl-dashboard.svg";
-import hydraDocument from "@/assets/HydraETL-portfolio-content.md.asset.json";
 import bankingImage from "@/assets/project-banking.svg";
 
 type Project = {
@@ -26,7 +25,7 @@ const projects: Project[] = [
     desc: "A concurrent, memory-bounded ETL engine that streams multi-gigabyte files through a Go worker-pool pipeline into MongoDB with batched writes, graceful shutdown, and a real-time monitoring dashboard.",
     tags: ["Go", "Gin", "MongoDB", "React", "Tailwind CSS", "Docker"],
     image: hydraImage,
-    documentUrl: hydraDocument.url,
+    documentUrl: "file:///home/aswinkumar/Downloads/HydraETL-portfolio-content.md",
   },
   {
     icon: Bot,
@@ -58,6 +57,7 @@ const projects: Project[] = [
     desc: "A web-based banking system supporting account management, secure transactions, and balance tracking with a clean JSP-driven UI.",
     tags: ["Java", "JDBC", "Servlet", "JSP"],
     image: bankingImage,
+    documentUrl: "#contact",
   },
 ];
 
@@ -81,8 +81,8 @@ const Projects = () => (
           >
             <a
               href={p.liveUrl ?? p.documentUrl ?? p.image}
-              target="_blank"
-              rel="noreferrer"
+              target={(p.liveUrl ?? p.documentUrl)?.startsWith("#") ? undefined : "_blank"}
+              rel={(p.liveUrl ?? p.documentUrl)?.startsWith("#") ? undefined : "noreferrer"}
               aria-label={`Open ${p.title}`}
               title={`Open ${p.title}`}
             >
@@ -93,8 +93,8 @@ const Projects = () => (
           {p.image ? (
             <a
               href={p.liveUrl ?? p.documentUrl ?? p.image}
-              target="_blank"
-              rel="noreferrer"
+              target={(p.liveUrl ?? p.documentUrl)?.startsWith("#") ? undefined : "_blank"}
+              rel={(p.liveUrl ?? p.documentUrl)?.startsWith("#") ? undefined : "noreferrer"}
               className="absolute -right-12 -top-5 z-10 block h-36 w-[62%] origin-center -rotate-[9deg] overflow-hidden rounded-xl border border-border bg-muted shadow-elegant transition-transform duration-300 ease-out group-hover:-translate-x-2 group-hover:translate-y-1 group-hover:rotate-0 group-hover:scale-[1.04] md:-right-14 md:h-40"
               aria-label={`View ${p.title}`}
             >
