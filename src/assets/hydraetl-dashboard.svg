@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 912" role="img" aria-labelledby="title desc">
+  <title id="title">HydraETL ingestion console</title>
+  <desc id="desc">Dark ETL dashboard showing an extract, transform, and load pipeline with throughput analytics.</desc>
+  <rect width="1600" height="912" rx="28" fill="#111214"/>
+  <rect x="44" y="44" width="1512" height="824" rx="20" fill="#080d16" stroke="#24324d" stroke-width="2"/>
+  <path d="M44 148h1512" stroke="#24324d" stroke-width="2"/>
+  <rect x="94" y="86" width="18" height="18" fill="none" stroke="#16d9c1"/>
+  <text x="144" y="105" fill="#e4e8f1" font-family="Arial,sans-serif" font-size="32">HydraETL</text>
+  <rect x="315" y="79" width="226" height="38" rx="7" fill="#111929" stroke="#2b3854" stroke-width="2"/>
+  <text x="331" y="105" fill="#697791" font-family="Arial,sans-serif" font-size="20">ingestion console</text>
+  <circle cx="1372" cy="98" r="7" fill="#1fe2c6"/>
+  <text x="1392" y="105" fill="#68758b" font-family="Arial,sans-serif" font-size="20">connected</text>
+  <rect x="89" y="185" width="477" height="227" rx="22" fill="none" stroke="#263551" stroke-width="2" stroke-dasharray="7 7"/>
+  <rect x="315" y="241" width="23" height="29" fill="none" stroke="#16d9c1"/>
+  <text x="184" y="316" fill="#e4e8f1" font-family="Arial,sans-serif" font-size="25">Drop a CSV or JSON file</text>
+  <text x="243" y="354" fill="#68758b" font-family="Arial,sans-serif" font-size="20">or click to browse</text>
+  <rect x="597" y="185" width="914" height="227" rx="22" fill="#080d16" stroke="#263551" stroke-width="2"/>
+  <text x="633" y="238" fill="#8c98ad" font-family="Arial,sans-serif" font-size="23">Pipeline flow</text>
+  <circle cx="672" cy="306" r="34" fill="#080d16" stroke="#17ddc7" stroke-width="4"/>
+  <circle cx="1052" cy="306" r="34" fill="#080d16" stroke="#9282ff" stroke-width="4"/>
+  <circle cx="1438" cy="306" r="34" fill="#080d16" stroke="#3b4861" stroke-width="4"/>
+  <path d="M708 306h310M1088 306h312" stroke="#17ddc7" stroke-width="4" stroke-dasharray="14 14"/>
+  <path d="M1088 306h312" stroke="#9282ff" stroke-width="4" stroke-dasharray="14 14"/>
+  <text x="633" y="382" fill="#647188" font-family="Arial,sans-serif" font-size="19">Extract</text>
+  <text x="934" y="382" fill="#647188" font-family="Arial,sans-serif" font-size="19">Transform - 8 threads</text>
+  <text x="1360" y="382" fill="#647188" font-family="Arial,sans-serif" font-size="19">Load / batch</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="89" y="447" width="338" height="148" rx="17" fill="#101624"/>
+    <rect x="448" y="447" width="338" height="148" rx="17" fill="#101624"/>
+    <rect x="807" y="447" width="338" height="148" rx="17" fill="#101624"/>
+    <rect x="1166" y="447" width="345" height="148" rx="17" fill="#101624"/>
+    <text x="116" y="487" fill="#647188" font-size="19">THROUGHPUT</text><text x="116" y="541" fill="#18dfc7" font-family="monospace" font-size="39">18,420</text><text x="116" y="568" fill="#647188" font-size="16">rec/s</text>
+    <text x="475" y="487" fill="#647188" font-size="19">PROCESSED</text><text x="475" y="541" fill="#9180ff" font-family="monospace" font-size="39">2,041,300</text><text x="475" y="568" fill="#647188" font-size="16">records</text>
+    <text x="834" y="487" fill="#647188" font-size="19">RAM FOOTPRINT</text><text x="834" y="541" fill="#ffad18" font-family="monospace" font-size="39">27.4</text><text x="834" y="568" fill="#647188" font-size="16">MB heap</text>
+    <text x="1193" y="487" fill="#647188" font-size="19">WORKER THREADS</text><text x="1193" y="541" fill="#18dfc7" font-family="monospace" font-size="39">8/8</text><text x="1193" y="568" fill="#647188" font-size="16">active</text>
+  </g>
+  <rect x="89" y="635" width="1422" height="190" rx="22" fill="#080d16" stroke="#263551" stroke-width="2"/>
+  <text x="125" y="684" fill="#8c98ad" font-family="Arial,sans-serif" font-size="23">Analytics - batch classification</text>
+  <text x="125" y="731" fill="#647188" font-family="Arial,sans-serif" font-size="19">Source batch</text><text x="756" y="731" fill="#647188" font-family="Arial,sans-serif" font-size="19">PII</text><text x="1113" y="731" fill="#647188" font-family="Arial,sans-serif" font-size="19">Count</text>
+  <path d="M125 754h1386" stroke="#1c2639" stroke-width="2"/>
+  <text x="125" y="786" fill="#c6ccd8" font-family="Arial,sans-serif" font-size="19">sample-users-1725.csv</text><rect x="756" y="765" width="103" height="28" rx="14" fill="#211e48"/><text x="770" y="786" fill="#9788ff" font-family="Arial,sans-serif" font-size="17">masked</text><text x="1113" y="786" fill="#18dfc7" font-family="monospace" font-size="20">1,998</text>
+</svg>
