@@ -25,7 +25,7 @@ const projects: Project[] = [
     desc: "A concurrent, memory-bounded ETL engine that streams multi-gigabyte files through a Go worker-pool pipeline into MongoDB with batched writes, graceful shutdown, and a real-time monitoring dashboard.",
     tags: ["Go", "Gin", "MongoDB", "React", "Tailwind CSS", "Docker"],
     image: hydraImage,
-    documentUrl: "file:///home/aswinkumar/Downloads/HydraETL-portfolio-content.md",
+    documentUrl: "/HydraETL-portfolio-content.md",
   },
   {
     icon: Bot,
