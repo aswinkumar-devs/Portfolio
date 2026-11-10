@@ -1,43 +1,34 @@
-# 👋 Hi, I'm Aswin Kumar M
+# Aswin Kumar M — Portfolio
 
-### Go-lang Developer | Full-Stack Web Developer
+This is the complete React, TypeScript, and Vite source for Aswin Kumar M's portfolio. Netlify and Vercel deployment settings are included.
 
-🔗 **Live Portfolio:** [aswinkumar-m.vercel.app](https://aswinkumar-m.vercel.app/)
+## Deploy to Netlify
 
----
+1. Extract this ZIP and put the project in a GitHub repository.
+2. In Netlify, choose **Add new site → Import an existing project** and connect that repository.
+3. Deploy. Netlify reads `netlify.toml` automatically. The build command is `npm run build`, and the published folder is `dist`.
 
-## 🧑‍💻 About
+The included rewrite keeps the portfolio's page links working on direct visits and refreshes. To deploy the ZIP without GitHub, build it locally using the instructions below, then deploy the generated `dist` folder through the Netlify dashboard or Netlify CLI.
 
-I'm a developer passionate about building clean, functional, and scalable applications — from AI-powered assistants to secure web systems and modern responsive frontends. This repository contains the source code for my personal portfolio website.
+## Deploy to Vercel
 
-## 🚀 Featured Projects
+1. Extract this ZIP and put the project in a GitHub repository.
+2. In Vercel, choose **Add New → Project** and import that repository.
+3. Deploy. Vercel reads `vercel.json` automatically; the build command is `npm run build`, and the output folder is `dist`.
 
-- **RAVA – Personal AI Assistant**  
-  A voice-enabled personal assistant that handles everyday tasks via natural language and integrates with multiple APIs.  
-  `Python` `Flask` `APIs`
+The included rewrite keeps the portfolio's page links working on direct visits and refreshes. For deployment from the ZIP without GitHub, install Node.js 20 or later, extract the archive, and run `npm install`, `npm run build`, then `npx vercel --prod` from the extracted project folder.
 
-- **Game-Based CAPTCHA Replacement**  
-  An interactive game-based bot prevention system that improves UX while staying secure against automated attacks.  
-  `Node.js` `MongoDB` `JavaScript`
+## Run locally
 
-- **Portfolio & E-commerce Sites**  
-  Modern responsive frontends with smooth animations, clean layouts, and accessible design patterns.  
-  `HTML` `CSS` `JavaScript`
+Install Node.js 20 or later, then run:
 
-## 🛠️ Tech Stack
+```sh
+npm install
+npm run dev
+```
 
-**Frontend:** React, TypeScript, Tailwind CSS  
-**Backend:** Python, Flask, Node.js  
-**Database:** MongoDB  
-**Deployment:** Vercel
+To make a production build locally, run `npm run build`. The generated website is saved to `dist`; upload that folder when using a host's manual static-site upload.
 
+## Contact form
 
-## 📬 Contact
-
-- Portfolio: [aswinkumar-m.vercel.app](https://aswinkumar-m.vercel.app/)
-- LinkedIn: https://www.linkedin.com/in/aswin-kumar-backend-developer/
-- Email: mass07.webdev@gmail.com
-
----
-
-⭐ If you like this project, consider giving it a star!
+The contact form uses the existing EmailJS configuration in the website. In your EmailJS account, confirm that its service and template are active and that the allowed website origins include your final hosting domain. The portfolio also includes the locally hosted profile, project images, résumé, and icons.

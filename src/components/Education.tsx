@@ -36,15 +36,15 @@ const Education = () => (
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: i * 0.1 }}
-          className="glass rounded-3xl p-8 shadow-card hover:shadow-elegant transition-smooth relative overflow-hidden"
+          className="glass rounded-3xl p-5 sm:p-8 shadow-card hover:shadow-elegant transition-smooth relative overflow-hidden"
         >
           <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-primary/20 blur-3xl" />
-          <div className="flex items-start gap-5 relative">
-            <div className="p-4 rounded-2xl gradient-primary text-primary-foreground shadow-glow">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5 relative">
+            <div className="p-3 sm:p-4 shrink-0 rounded-2xl gradient-primary text-primary-foreground shadow-glow">
               <item.icon size={28} />
             </div>
-            <div className="flex-1">
-              <h3 className="text-2xl font-bold mb-1">{item.title}</h3>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-xl sm:text-2xl font-bold mb-1">{item.title}</h3>
               <p className="text-primary dark:text-accent font-medium mb-3">{item.place}</p>
               <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-2">

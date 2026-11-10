@@ -8,6 +8,7 @@ import Loader from "@/components/Loader";
 import FluidCursor from "@/components/FluidCursor";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ChatWidget from "@/components/ChatWidget";
+import RoboPet from "@/components/RoboPet";
 import Index from "./pages/Index.tsx";
 import SkillsUniverse from "./pages/SkillsUniverse.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ChatWidget />
+          <RoboPet />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

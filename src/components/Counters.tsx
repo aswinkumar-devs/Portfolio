@@ -1,18 +1,27 @@
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { Rocket, Code2, Server } from "lucide-react";
+import { Rocket, Briefcase, Code2, Sparkles } from "lucide-react";
 
-const items = [
-  { icon: Rocket, label: "Projects Completed", value: 5, suffix: "+" },
-  { icon: Code2, label: "Technologies Known", value: 8, suffix: "+" },
-  { icon: Server, label: "Backend-developer", value: 1, suffix: " yr", staticText: "Go" },
+interface CounterItem {
+  icon: typeof Rocket;
+  label: string;
+  value: number;
+  suffix?: string;
+  decimals?: number;
+}
+
+const items: CounterItem[] = [
+  { icon: Rocket, label: "Projects Completed", value: 4, suffix: "+" },
+  { icon: Briefcase, label: "Industry Experience", value: 1, suffix: " yr" },
+  { icon: Code2, label: "Core Technologies", value: 10, suffix: "+" },
+  { icon: Sparkles, label: "Cumulative CGPA", value: 8.41, decimals: 2 },
 ];
 
-const Counter = ({ to, suffix }: { to: number; suffix: string }) => {
+const Counter = ({ to, suffix = "", decimals = 0 }: { to: number; suffix?: string; decimals?: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { amount: 0.5 });
   const mv = useMotionValue(0);
-  const rounded = useTransform(mv, (v) => Math.round(v));
+  const formatted = useTransform(mv, (v) => (decimals > 0 ? v.toFixed(decimals) : Math.round(v).toString()));
 
   useEffect(() => {
     if (inView) {
@@ -24,32 +33,30 @@ const Counter = ({ to, suffix }: { to: number; suffix: string }) => {
 
   return (
     <span ref={ref} className="inline-flex items-baseline">
-      <motion.span>{rounded}</motion.span>
-      <span>{suffix}</span>
+      <motion.span>{formatted}</motion.span>
+      {suffix && <span>{suffix}</span>}
     </span>
   );
 };
 
 const Counters = () => (
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6 sm:mt-8">
     {items.map((it, i) => (
       <motion.div
         key={it.label}
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.3 }}
-        transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-        className="glass rounded-2xl p-6 text-center hover:shadow-glow transition-smooth"
+        transition={{ duration: 0.4, delay: i * 0.08, ease: "easeOut" }}
+        className="glass rounded-xl p-3 sm:p-4 text-center hover:shadow-glow hover:-translate-y-0.5 transition-smooth flex flex-col items-center justify-center border border-border/40"
       >
-        <it.icon className="mx-auto mb-3 text-primary dark:text-accent" size={32} />
-        <div className="text-4xl font-bold text-primary dark:text-accent">
-          {"staticText" in it && it.staticText ? (
-            it.staticText
-          ) : (
-            <Counter to={it.value} suffix={it.suffix} />
-          )}
+        <div className="flex items-center gap-2 mb-1">
+          <it.icon size={16} className="text-primary dark:text-accent" />
+          <span className="text-lg sm:text-xl md:text-2xl font-bold gradient-text">
+            <Counter to={it.value} suffix={it.suffix} decimals={it.decimals} />
+          </span>
         </div>
-        <div className="text-sm text-muted-foreground mt-2">{it.label}</div>
+        <div className="text-[11px] sm:text-xs text-muted-foreground font-medium">{it.label}</div>
       </motion.div>
     ))}
   </div>

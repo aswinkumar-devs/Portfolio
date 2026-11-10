@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { Download, Mail, FileText, X, Terminal, Layers } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { toast } from "sonner";
 
 const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" width={20} height={20} {...props}>
@@ -18,36 +19,75 @@ import profile from "@/assets/profile.jpg";
 
 const Hero = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
-  const scrollTo = (id: string) =>
+  const photoRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handlePhotoMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = photoRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotateY = (x / (rect.width / 2)) * 10;
+    const rotateX = -(y / (rect.height / 2)) * 10;
+    const glareX = ((e.clientX - rect.left) / rect.width) * 100;
+    const glareY = ((e.clientY - rect.top) / rect.height) * 100;
+    setTilt({ rotateX, rotateY, glareX, glareY });
+  };
+
+  const handlePhotoMouseLeave = () => {
+    setIsHovering(false);
+    setTilt({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50 });
+  };
+
+  const handleResumeClick = () => {
+    // 1. Show: Open the in-app resume viewer modal
+    setResumeOpen(true);
+
+    // 2. Download: Trigger immediate PDF download
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "Aswin_Kumar_M_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast.success("Resume preview opened & download started!");
+  };
+
+  const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    window.dispatchEvent(new CustomEvent("portfolio:navigate", { detail: id }));
+  };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center px-6 pt-24 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 pt-24 pb-24 sm:px-6 lg:pb-0 overflow-hidden"
     >
       {/* organic morphing blob */}
       <div className="hero-blob" aria-hidden="true" />
 
 
-      <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-center lg:text-left hero-glass p-6 md:p-10"
+          className="text-center lg:text-left hero-glass min-w-0 p-2 sm:p-6 md:p-10"
         >
           <span className="inline-block px-4 py-1 rounded-full glass text-xs uppercase tracking-widest text-primary dark:text-accent mb-6">
             👋 Welcome to my portfolio
           </span>
-          <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold leading-tight mb-4 overflow-visible">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold leading-tight mb-4 overflow-visible">
             <span className="block">Hi, I'm</span>
-            <span className="gradient-text inline-block overflow-visible cursor-default pr-[0.25em] pb-3 leading-[1.25]">
+            <span className="gradient-text inline-block overflow-visible cursor-default sm:pr-[0.25em] pb-3 leading-[1.25]">
               Aswin Kumar M
             </span>
           </h1>
 
-          <h2 className="text-2xl md:text-3xl font-medium text-muted-foreground mb-6 min-h-[2.5rem] flex items-center justify-center lg:justify-start">
+          <h2 className="text-lg sm:text-2xl md:text-3xl font-medium text-muted-foreground mb-4 sm:mb-6 min-h-[3.5rem] sm:min-h-[2.5rem] flex flex-wrap items-center justify-center lg:justify-start">
             <span className="text-foreground/80">I'm a&nbsp;</span>
             <TypeAnimation
               sequence={[
@@ -66,11 +106,11 @@ const Hero = () => {
             />
             <span className="typed-cursor h-7 md:h-8" aria-hidden="true" />
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-6 sm:mb-8">
             💻 B.E. CSE student passionate about developing scalable software solutions using Core Java, J2EE, and modern web technologies while transforming innovative ideas into efficient real-world applications.
           </p>
 
-          <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
             <button
               onClick={() => scrollTo("contact")}
               className="px-6 py-3 rounded-full gradient-primary text-primary-foreground font-medium shadow-glow hover:scale-105 transition-smooth flex items-center gap-2"
@@ -78,14 +118,14 @@ const Hero = () => {
               <Mail size={18} /> Hire Me
             </button>
             <button
-              onClick={() => setResumeOpen(true)}
+              onClick={handleResumeClick}
               className="px-6 py-3 rounded-full glass font-medium hover:bg-primary/10 transition-smooth flex items-center gap-2"
             >
               <FileText size={18} /> Resume
             </button>
           </div>
 
-          <div className="flex gap-4 mt-8 justify-center lg:justify-start">
+          <div className="flex gap-4 mt-6 sm:mt-8 justify-center lg:justify-start">
             <a
               href="https://www.linkedin.com/in/aswin-kumar-backend-developer/"
               target="_blank"
@@ -115,19 +155,64 @@ const Hero = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.72, y: 54, rotateY: -16 }}
+          animate={{ opacity: 1, scale: 1, y: 0, rotateY: 0 }}
+          transition={{ type: "spring", stiffness: 92, damping: 13, delay: 0.2 }}
           className="relative flex justify-center"
+          style={{ perspective: 1200 }}
         >
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
-            <div className="absolute inset-0 rounded-full gradient-primary blur-2xl opacity-60 animate-pulse" />
-            <div className="absolute inset-0 rounded-full gradient-primary p-1.5 shadow-elegant">
-              <div className="w-full h-full rounded-full overflow-hidden bg-card">
+          <div className="relative w-60 h-[17.6rem] sm:w-[17rem] sm:h-[19.8rem] md:w-80 md:h-[24rem]">
+            <motion.div
+              aria-hidden="true"
+              animate={{ scale: [0.94, 1.04, 0.94], opacity: [0.35, 0.58, 0.35] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -inset-4 rounded-[2.4rem] gradient-primary blur-2xl"
+            />
+            <div
+              ref={photoRef}
+              onMouseMove={handlePhotoMouseMove}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={handlePhotoMouseLeave}
+              className="absolute inset-0 rounded-[2rem] shadow-elegant will-change-transform"
+              style={{
+                transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${isHovering ? 1.035 : 1})`,
+                padding: isHovering ? 0 : "6px",
+                transition: isHovering
+                  ? "transform 0.12s ease-out, padding 0.45s ease"
+                  : "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), padding 0.45s ease",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              {/* gradient border layer — fades out smoothly on hover */}
+              <div
+                aria-hidden="true"
+                className="absolute -inset-0 rounded-[2rem] gradient-primary pointer-events-none"
+                style={{
+                  opacity: isHovering ? 0 : 1,
+                  transition: "opacity 0.45s ease",
+                }}
+              />
+              <div
+                className="relative w-full h-full overflow-hidden bg-card"
+                style={{
+                  borderRadius: isHovering ? "2rem" : "1.65rem",
+                  transition: "border-radius 0.45s ease",
+                }}
+              >
                 <img
                   src={profile}
                   alt="Aswin Kumar M"
                   className="w-full h-full object-cover"
+                  style={{ transform: "translateZ(24px)", objectPosition: "center 25%" }}
+                />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+                  style={{
+                    opacity: isHovering ? 0.28 : 0,
+                    background: `radial-gradient(circle at ${tilt.glareX}% ${tilt.glareY}%, hsl(var(--primary-foreground) / 0.8), transparent 34%)`,
+                    transform: "translateZ(36px)",
+                  }}
                 />
               </div>
             </div>
@@ -135,20 +220,24 @@ const Hero = () => {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 3 }}
-              className="absolute -top-3 -right-3 glass px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap flex items-center gap-2"
+              className="absolute -top-3 right-0 sm:-right-5 glass px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-[11px] sm:text-sm font-medium whitespace-nowrap flex items-center gap-1.5 sm:gap-2 shadow-card"
+              style={{ transform: "translateZ(54px)" }}
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-md border border-primary/50 bg-primary/10 text-primary">
-                <Terminal size={14} />
+              <span className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-md border border-primary/50 bg-primary/10 text-primary">
+                <Terminal size={12} className="sm:hidden" />
+                <Terminal size={14} className="hidden sm:inline" />
               </span>
               Go Backend Developer
             </motion.div>
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 3, delay: 1 }}
-              className="absolute -bottom-3 -left-3 glass px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap flex items-center gap-2"
+              className="absolute -bottom-3 left-0 sm:-left-5 glass px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-[11px] sm:text-sm font-medium whitespace-nowrap flex items-center gap-1.5 sm:gap-2 shadow-card"
+              style={{ transform: "translateZ(54px)" }}
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-md border border-primary/50 bg-primary/10 text-primary">
-                <Layers size={14} />
+              <span className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-md border border-primary/50 bg-primary/10 text-primary">
+                <Layers size={12} className="sm:hidden" />
+                <Layers size={14} className="hidden sm:inline" />
               </span>
               Software Developer
             </motion.div>
@@ -172,23 +261,37 @@ const Hero = () => {
 
       <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
         <DialogContent className="max-w-4xl w-[95vw] h-[88vh] p-0 overflow-hidden flex flex-col gap-0 border border-primary/40 bg-background/95 shadow-[0_0_60px_hsl(var(--primary)/0.35)] rounded-2xl [&>button]:hidden">
-          <div className="flex shrink-0 items-center justify-between gap-3 px-6 py-4 border-b border-primary/25">
-            <h3 className="text-2xl font-bold gradient-text pr-1">Resume</h3>
-            <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center justify-between gap-2 sm:gap-3 px-3 py-2.5 sm:px-6 sm:py-4 border-b border-primary/25">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <img
+                src="/logo.png"
+                alt="AK Dragon Logo"
+                className="w-8 h-8 sm:w-10 sm:h-10 object-contain shrink-0"
+              />
+              <div className="min-w-0">
+                <h3 className="text-sm sm:text-xl font-bold gradient-text leading-tight truncate">
+                  Aswin Kumar M — Resume
+                </h3>
+                <p className="text-[10px] sm:text-[11px] font-mono text-muted-foreground truncate">
+                  Backend Software Engineer (Go / Microservices)
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               <a
                 href="/resume.pdf"
                 download="Aswin_Kumar_M_Resume.pdf"
-                className="px-5 py-2.5 rounded-xl gradient-primary text-primary-foreground text-sm font-semibold flex flex-col items-center gap-0.5 shadow-glow hover:scale-105 transition-smooth"
+                className="px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-xl gradient-primary text-primary-foreground text-xs sm:text-sm font-semibold flex items-center sm:flex-col gap-1 sm:gap-0.5 shadow-glow hover:scale-105 transition-smooth"
               >
-                <Download size={18} />
-                Download
+                <Download size={15} />
+                <span>Download</span>
               </a>
               <button
                 onClick={() => setResumeOpen(false)}
-                className="p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-smooth"
+                className="p-1.5 sm:p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-smooth"
                 aria-label="Close resume"
               >
-                <X size={22} />
+                <X size={18} className="sm:size-5" />
               </button>
             </div>
           </div>

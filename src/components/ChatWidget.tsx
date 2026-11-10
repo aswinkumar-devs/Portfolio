@@ -111,41 +111,41 @@ const ChatWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="fixed bottom-24 right-6 z-50 flex h-[27rem] w-[min(22rem,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl border border-primary/30 bg-background/95 dark:bg-background/70 backdrop-blur-xl shadow-[0_0_40px_hsl(var(--primary)/0.25)]"
+            className="fixed bottom-20 sm:bottom-24 inset-x-3 sm:inset-x-auto sm:right-6 z-50 flex h-[min(28rem,calc(100dvh-6.5rem))] w-auto sm:w-[22rem] flex-col overflow-hidden rounded-2xl border border-primary/30 bg-background/95 dark:bg-background/70 backdrop-blur-xl shadow-[0_0_40px_hsl(var(--primary)/0.25)]"
           >
 
-            <div className="flex items-center justify-between border-b border-primary/20 px-4 py-3">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between border-b border-primary/20 px-3.5 sm:px-4 py-2.5 sm:py-3">
+              <div className="flex min-w-0 items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_hsl(var(--primary))]" />
-                <span className="text-sm font-semibold">Chat with Aswin's AI</span>
+                <span className="text-xs sm:text-sm font-semibold truncate">Chat with Aswin's AI</span>
               </div>
               <div className="flex items-center gap-1">
                 <button
                   onClick={clearChat}
                   aria-label="Clear chat"
                   title="Clear chat"
-                  className="flex items-center gap-1 rounded-full border border-primary/30 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                  className="flex items-center gap-1 rounded-full border border-primary/30 px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:border-primary hover:text-primary"
                 >
-                  <Trash2 size={12} /> Clear
+                  <Trash2 size={11} /> Clear
                 </button>
                 <button
                   onClick={() => setOpen(false)}
                   aria-label="Close chat"
-                  className="rounded-full p-1 text-muted-foreground transition-colors hover:text-primary"
+                  className="rounded-full p-1.5 sm:p-1 text-muted-foreground transition-colors hover:text-primary"
                 >
                   <X size={16} />
                 </button>
               </div>
             </div>
 
-            <div ref={scrollRef} className="neon-scroll flex-1 space-y-3 overflow-y-auto px-4 py-4">
+            <div ref={scrollRef} className="neon-scroll min-h-0 flex-1 space-y-2.5 sm:space-y-3 overflow-y-auto px-3.5 sm:px-4 py-3 sm:py-4">
               {messages.map((m) => (
                 <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
                   <div
                     className={
                       m.role === "user"
-                        ? "max-w-[85%] rounded-2xl rounded-br-sm bg-secondary px-3 py-2 text-sm text-secondary-foreground"
-                        : "max-w-[85%] rounded-2xl rounded-bl-sm border border-primary/25 bg-primary/10 px-3 py-2 text-sm text-foreground"
+                        ? "max-w-[88%] sm:max-w-[85%] break-words rounded-2xl rounded-br-sm bg-secondary px-3 py-2 text-xs sm:text-sm text-secondary-foreground"
+                        : "max-w-[88%] sm:max-w-[85%] break-words rounded-2xl rounded-bl-sm border border-primary/25 bg-primary/10 px-3 py-2 text-xs sm:text-sm text-foreground"
                     }
                   >
                     {m.text}
@@ -154,13 +154,13 @@ const ChatWidget = () => {
               ))}
             </div>
 
-            <div className="border-t border-primary/15 px-3 py-2.5">
-              <div className="neon-scroll flex max-h-[4.75rem] flex-wrap gap-2 overflow-y-auto pr-1">
+            <div className="border-t border-primary/15 px-3 py-2 sm:py-2.5">
+              <div className="neon-scroll flex max-h-[4.75rem] flex-wrap gap-1.5 sm:gap-2 overflow-y-auto pr-1">
                 {PILLS.map((p) => (
                   <button
                     key={p}
                     onClick={() => ask(p)}
-                    className="rounded-full border border-primary/25 bg-primary/5 px-3 py-1.5 text-left text-xs text-foreground/80 transition-all hover:border-primary hover:bg-primary/10 hover:text-foreground hover:shadow-[0_0_12px_hsl(var(--primary)/0.45)]"
+                    className="rounded-full border border-primary/25 bg-primary/5 px-2.5 sm:px-3 py-1 sm:py-1.5 text-left text-[11px] sm:text-xs text-foreground/80 transition-all hover:border-primary hover:bg-primary/10 hover:text-foreground hover:shadow-[0_0_12px_hsl(var(--primary)/0.45)]"
                   >
                     {p}
                   </button>
@@ -174,14 +174,14 @@ const ChatWidget = () => {
                 e.preventDefault();
                 ask(input);
               }}
-              className="flex items-center gap-2 border-t border-primary/15 p-3"
+              className="flex items-center gap-2 border-t border-primary/15 p-2.5 sm:p-3"
             >
               <input
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type a message..."
-                className="flex-1 rounded-full border border-border bg-background/60 px-4 py-2 text-sm outline-none focus:border-primary"
+                className="min-w-0 flex-1 rounded-full border border-border bg-background/60 px-3.5 sm:px-4 py-2 text-base sm:text-sm outline-none focus:border-primary"
               />
               <button
                 type="submit"
@@ -195,20 +195,20 @@ const ChatWidget = () => {
         )}
       </AnimatePresence>
 
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-1.5">
-        <span className="rounded-full border border-primary/40 bg-background/80 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-primary backdrop-blur-sm">
+      <div className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-50 flex flex-col items-center gap-1 sm:gap-1.5">
+        <span className="rounded-full border border-primary/40 bg-background/80 px-2 sm:px-2.5 py-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-widest text-primary backdrop-blur-sm">
           AI Chatbot
         </span>
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label={open ? "Close chat" : "Open chat"}
-          className="ai-orb relative flex h-14 w-14 items-center justify-center rounded-full text-primary-foreground transition-transform hover:scale-105"
+          className="ai-orb relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full text-primary-foreground transition-transform hover:scale-105"
         >
           <span className="ai-orb-ring" aria-hidden="true" />
           <span className="ai-orb-ring ai-orb-ring--2" aria-hidden="true" />
           <span className="ai-orb-core" aria-hidden="true" />
           <span className="relative z-10">
-            {open ? <X size={22} /> : <MessageCircle size={22} />}
+            {open ? <X size={20} /> : <MessageCircle size={20} />}
           </span>
         </button>
       </div>

@@ -253,26 +253,26 @@ const WhyHireMe = () => {
 
   return (
     <Section id="why-hire-me" eyebrow="Why Hire Me" title="What I Bring to the Table">
-      <div className="relative animate-fade-in hero-glass p-4 md:p-8">
+      <div className="relative animate-fade-in hero-glass py-4 md:py-8 px-0 sm:px-8 md:px-12 sm:-mx-2 md:-mx-4">
         {/* Arrows */}
         <button
           onClick={scrollPrev}
           aria-label="Previous"
-          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full glass shadow-card items-center justify-center hover:shadow-elegant transition-smooth hover:-translate-x-0.5 -translate-x-2"
+          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full glass shadow-card items-center justify-center hover:shadow-elegant transition-smooth hover:-translate-x-0.5"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={scrollNext}
           aria-label="Next"
-          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full glass shadow-card items-center justify-center hover:shadow-elegant transition-smooth hover:translate-x-0.5 translate-x-2"
+          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full glass shadow-card items-center justify-center hover:shadow-elegant transition-smooth hover:translate-x-0.5"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
 
         {/* Carousel */}
         <div
-          className="overflow-hidden px-2 md:px-10 py-6"
+          className="hire-carousel overflow-hidden px-2 md:px-10 py-6"
           ref={emblaRef}
           style={{
             maskImage:
@@ -288,10 +288,10 @@ const WhyHireMe = () => {
               return (
                 <div
                   key={item.title}
-                  className="shrink-0 grow-0 basis-[80%] sm:basis-[45%] lg:basis-[32%]"
+                  className="shrink-0 grow-0 basis-[88%] sm:basis-[45%] lg:basis-[32%]"
                 >
                   <article
-                    className={`group relative h-full p-6 sm:p-8 rounded-2xl glass shadow-card transition-all duration-500 flex flex-col ${
+                    className={`group relative h-full p-5 sm:p-8 rounded-2xl glass shadow-card transition-all duration-500 flex flex-col ${
                       isActive
                         ? "scale-100 md:scale-[1.04] shadow-elegant"
                         : "scale-95 opacity-70 hover:opacity-100"
@@ -302,20 +302,20 @@ const WhyHireMe = () => {
                       style={{ background: "var(--gradient-mesh)" }}
                     />
                     <div className="relative flex flex-col h-full">
-                      <div className="flex items-center gap-4 mb-5">
-                        <div className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center gradient-primary shadow-glow">
-                          <Icon className="w-7 h-7 text-primary-foreground" />
+                      <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4 mb-4 sm:mb-5">
+                        <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center gradient-primary shadow-glow">
+                          <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary-foreground" />
                         </div>
-                        <span className="text-[10px] uppercase tracking-widest text-primary dark:text-accent font-semibold">
+                        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-primary dark:text-accent font-semibold">
                           {item.category}
                         </span>
                       </div>
 
-                      <h3 className="text-xl sm:text-2xl font-bold text-foreground leading-snug mb-3">
+                      <h3 className="text-lg sm:text-2xl font-bold text-foreground leading-snug mb-2 sm:mb-3">
                         {item.title}
                       </h3>
 
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+                      <p className="text-xs sm:text-base text-muted-foreground leading-relaxed line-clamp-3 flex-1">
                         {item.text}
                       </p>
 
@@ -323,7 +323,7 @@ const WhyHireMe = () => {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleOpen(item)}
-                        className="mt-5 self-start text-primary hover:text-primary hover:bg-primary/10 px-3"
+                        className="mt-4 sm:mt-5 self-start text-xs sm:text-sm text-primary hover:text-primary hover:bg-primary/10 px-2.5 sm:px-3"
                       >
                         Read more →
                       </Button>
@@ -336,7 +336,7 @@ const WhyHireMe = () => {
         </div>
 
         {/* Dots */}
-        <div className="flex flex-wrap justify-center gap-2 mt-8">
+        <div className="max-w-xs mx-auto flex flex-wrap justify-center gap-1.5 sm:gap-2 mt-6 sm:mt-8">
           {scrollSnaps.map((_, i) => (
             <button
               key={i}
@@ -354,7 +354,7 @@ const WhyHireMe = () => {
 
       {/* Modal */}
       <Dialog open={!!openItem} onOpenChange={handleClose}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg max-h-[85dvh] overflow-y-auto">
           {openItem && (
             <>
               <DialogHeader>

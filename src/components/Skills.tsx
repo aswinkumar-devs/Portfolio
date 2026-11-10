@@ -125,7 +125,7 @@ const Skills = () => {
   );
 
   return (
-  <section id="skills" className="relative py-24 px-6 overflow-hidden skills-grid-bg">
+  <section id="skills" className="relative py-16 px-4 sm:py-24 sm:px-6 scroll-mt-20 overflow-hidden skills-grid-bg">
     <div className="relative z-10 max-w-6xl mx-auto">
       <motion.div
         initial={instant ? false : { opacity: 0, y: 20 }}
@@ -134,7 +134,7 @@ const Skills = () => {
         transition={{ duration: 0.5 }}
         className="text-center mb-14"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
           <span className="gradient-text">My Stack</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -142,7 +142,7 @@ const Skills = () => {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
         {categories.map((cat, ci) => (
           <motion.div
             key={cat.title}
@@ -150,7 +150,7 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.5, delay: ci * 0.06 }}
-            className="glass rounded-2xl p-6 border border-border"
+            className="glass min-w-0 rounded-2xl p-4 sm:p-6 border border-border"
           >
             <div className="flex items-center gap-3 mb-5">
               <span className="block w-1 h-5 rounded-full gradient-primary" />
@@ -164,8 +164,7 @@ const Skills = () => {
               initial={instant ? "show" : "hidden"}
               whileInView="show"
               viewport={{ once: false, amount: 0.1 }}
-              className="grid gap-3"
-              style={{ gridTemplateColumns: "repeat(auto-fill, minmax(90px, 1fr))" }}
+              className="grid grid-cols-3 gap-2 sm:gap-3 sm:grid-cols-[repeat(auto-fill,minmax(90px,1fr))]"
             >
               {cat.skills.map((s) => {
                 const Icon = s.icon;
@@ -174,7 +173,7 @@ const Skills = () => {
                     key={s.name}
                     variants={item}
                     whileHover={{ y: -3, scale: 1.04 }}
-                    className="rounded-xl border border-border bg-background/40 p-3 flex flex-col items-center justify-center gap-2 transition-smooth hover:border-primary/50"
+                    className="rounded-xl border border-border bg-background/40 min-w-0 p-2 sm:p-3 flex flex-col items-center justify-center gap-2 transition-smooth hover:border-primary/50"
                   >
                     <Icon
                       size={32}
@@ -191,14 +190,37 @@ const Skills = () => {
         ))}
       </div>
 
-      <div className="mt-14 flex justify-center">
+      <div className="mt-14 flex flex-col items-center gap-3">
         <Link
           to="/skills-universe"
           onClick={() => sessionStorage.setItem("portfolio:scrollY", String(window.scrollY))}
-          className="explore-skills-btn inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium tracking-wide"
+          className="group relative inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase overflow-hidden transition-all duration-300 hover:scale-105 max-w-full"
+          style={{
+            background: "linear-gradient(135deg, rgba(0, 240, 255, 0.12) 0%, rgba(255, 0, 85, 0.12) 100%)",
+            border: "1px solid rgba(0, 240, 255, 0.45)",
+            boxShadow: "0 0 24px rgba(0, 240, 255, 0.25), inset 0 0 16px rgba(255, 0, 85, 0.18)",
+          }}
         >
-          Explore Skills <ArrowRight size={16} />
+          {/* Animated gradient sweep / spider-web glow on hover */}
+          <span
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background: "linear-gradient(135deg, rgba(0, 240, 255, 0.25) 0%, rgba(255, 0, 85, 0.25) 100%)",
+              boxShadow: "0 0 35px rgba(0, 240, 255, 0.6), inset 0 0 25px rgba(255, 0, 85, 0.4)",
+            }}
+          />
+          <span className="relative flex flex-wrap sm:flex-nowrap items-center justify-center gap-1.5 sm:gap-2.5 text-foreground font-mono font-bold tracking-wider sm:tracking-widest text-[11px] sm:text-sm">
+            <Network size={15} className="text-[#00f0ff] animate-pulse" />
+            <span className="text-[#00f0ff] drop-shadow-[0_0_8px_#00f0ff]">SPIDER-VERSE WEB</span>
+            <span className="text-muted-foreground/50 hidden sm:inline">//</span>
+            <span>ENTER MULTIVERSE</span>
+            <ArrowRight size={15} className="text-[#ff0055] transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
         </Link>
+        <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground/60 flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00f0ff] inline-block animate-ping" />
+          Earth-616 • Dimensional Neural Net
+        </span>
       </div>
     </div>
   </section>
